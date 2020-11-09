@@ -1,0 +1,218 @@
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+      Punto 4:
+      Suponga que el gobernador de un departamento de 6 pueblos desea determinar en
+      cuál de ellos debe poner una estación de bomberos. Para ello la gobernación desea
+      construir la mínima cantidad de estaciones que asegure que al menos habrá una estación
+      dentro de 15 minutos (tiempo para conducir) en cada pueblo.
+   8   
+   9  Sets
+  10      i   ciudades /c1*c6/;
+  11  alias(i,j);
+  12  Scalar TMAX tiempoMaximo /15/;
+  13   
+  14  Table T(i,j) "tiempo (min)"
+  15      c1  c2  c3  c4  c5  c6
+  16  c1  0   10  20  30  30  20
+  17  c2  10  0   25  35  20  10
+  18  c3  20  25  0   15  30  20
+  19  c4  30  35  15  0   15  25
+  20  c5  30  20  30  15  0   14
+  21  c6  20  10  20  25  14  0
+  22  ;
+  23   
+  24  Variables
+  25      x(i)    Indica si la estación se va a construir en el pueblo i
+  26      z       Función Objetivo;
+  27   
+  28  Binary Variable x(i);
+  29   
+  30  Equations
+  31   
+  32  FO     FuncioObjetivo
+  33  r      Restriccion de tiempo;
+  34   
+  35  FO          ..z=e=sum(i,x(i));
+  36  r(i)        ..sum(j$(T(i,j)<=TMAX) ,x(j))=g=1
+  37   
+  38  Model model1 /all/ ;
+  39  option mip=CPLEX
+  40  Solve model1 using mip minimizing z;
+  41   
+  42  Display x.l;
+  43  Display z.l;
+  44   
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  32.1.0 r75a5b5d WEX-WEI
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using MIP From line 40
+
+
+---- FO  =E=  FuncioObjetivo
+
+FO..  - x(c1) - x(c2) - x(c3) - x(c4) - x(c5) - x(c6) + z =E= 0 ; (LHS = 0)
+     
+
+---- r  =G=  Restriccion de tiempo
+
+r(c1)..  x(c1) + x(c2) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+r(c2)..  x(c1) + x(c2) + x(c6) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+r(c3)..  x(c3) + x(c4) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING 3 ENTRIES SKIPPED
+
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using MIP From line 40
+
+
+---- x  Indica si la estación se va a construir en el pueblo i
+
+x(c1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       FO
+        1       r(c1)
+        1       r(c2)
+
+x(c2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       FO
+        1       r(c1)
+        1       r(c2)
+        1       r(c6)
+
+x(c3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       FO
+        1       r(c3)
+        1       r(c4)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- z  Función Objetivo
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       FO
+
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using MIP From line 40
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            7
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            23     DISCRETE VARIABLES          6
+
+
+GENERATION TIME      =        0.171 SECONDS      4 MB  32.1.0 r75a5b5d WEX-WEI
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using MIP From line 40
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  40
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE                2.0000
+
+ RESOURCE USAGE, LIMIT          0.297 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+
+IBM ILOG CPLEX   32.1.0 r75a5b5d Released Jul 31, 2020 WEI x86 64bit/MS Window
+*** This solver runs with a demo license. No commercial use.
+Cplex 12.10.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+MIP status(101): integer optimal solution
+Cplex Time: 0.05sec (det. 0.01 ticks)
+Fixing integer variables, and solving final LP...
+Fixed MIP status(1): optimal
+Cplex Time: 0.03sec (det. 0.00 ticks)
+Proven optimal solution.
+
+MIP Solution:            2.000000    (0 iterations, 0 nodes)
+Final Solve:             2.000000    (0 iterations)
+
+Best possible:           2.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU FO                  .              .              .             1.0000      
+
+  FO  FuncioObjetivo
+
+---- EQU r  Restriccion de tiempo
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+c1         1.0000         1.0000        +INF             .          
+c2         1.0000         1.0000        +INF             .          
+c3         1.0000         1.0000        +INF             .          
+c4         1.0000         1.0000        +INF             .          
+c5         1.0000         1.0000        +INF             .          
+c6         1.0000         1.0000        +INF             .          
+
+---- VAR x  Indica si la estación se va a construir en el pueblo i
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+c1          .              .             1.0000         1.0000      
+c2          .             1.0000         1.0000         1.0000      
+c3          .              .             1.0000         1.0000      
+c4          .             1.0000         1.0000         1.0000      
+c5          .              .             1.0000         1.0000      
+c6          .              .             1.0000         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF            2.0000        +INF             .          
+
+  z  Función Objetivo
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 32.1.0  r75a5b5d Released Jul 31, 2020 WEX-WEI x86 64bit/MS Windows - 10/13/20 07:41:33 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     42 VARIABLE x.L  Indica si la estación se va a construir en el pueblo i
+
+c2 1.000,    c4 1.000
+
+
+----     43 VARIABLE z.L                   =        2.000  Función Objetivo
+
+
+EXECUTION TIME       =        1.219 SECONDS      4 MB  32.1.0 r75a5b5d WEX-WEI
+
+
+USER: GAMS Demo license for Martin Galvan            G200815|0002CO-GEN
+      Universidad de Los Andes, Colombia                       DL014925
+
+
+**** FILE SUMMARY
+
+Input      D:\Universidad\MOS\LAB\2\Punto4.gms
+Output     D:\Universidad\MOS\LAB\2\Punto4.lst

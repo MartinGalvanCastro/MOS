@@ -1,0 +1,89 @@
+--- Job Punto4.gms Start 10/13/20 07:41:33 32.1.0 r75a5b5d WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    D:\Universidad\MOS\32\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input D:\Universidad\MOS\LAB\2\Punto4.gms
+    PageSize 0
+    ScrDir D:\Universidad\MOS\LAB\2\225a\
+    SysDir D:\Universidad\MOS\32\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+GAMS 32.1.0   Copyright (C) 1987-2020 GAMS Development. All rights reserved
+Licensee: GAMS Demo license for Martin Galvan            G200815|0002CO-GEN
+          Universidad de Los Andes, Colombia                       DL014925
+          C:\Users\marti\OneDrive\Documentos\GAMS\gamslice.txt
+          md.galvan@uniandes.edu.co, Martin Galvan                         
+          Demo license for demonstration and instructional purposes only
+--- Starting compilation
+--- Punto4.gms(44) 3 Mb
+--- Starting execution: elapsed 0:00:00.332
+--- Punto4.gms(39) 4 Mb
+--- Generating MIP model model1
+--- Punto4.gms(40) 4 Mb
+---   7 rows  7 columns  23 non-zeroes
+---   6 discrete-columns
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.513
+
+IBM ILOG CPLEX   32.1.0 r75a5b5d Released Jul 31, 2020 WEI x86 64bit/MS Window
+*** This solver runs with a demo license. No commercial use.
+Cplex 12.10.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de2ae
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+CPXPARAM_WorkDir                                 "D:\Universidad\MOS\LAB\2\225a\"
+Found incumbent of value 4.000000 after 0.03 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 7 rows and 7 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.05 sec. (0.01 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    0.05 sec. (0.01 ticks)
+MIP status(101): integer optimal solution
+Cplex Time: 0.05sec (det. 0.01 ticks)
+Fixing integer variables, and solving final LP...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de2ae
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+CPXPARAM_WorkDir                                 "D:\Universidad\MOS\LAB\2\225a\"
+Tried aggregator 1 time.
+LP Presolve eliminated 7 rows and 7 columns.
+All rows and columns eliminated.
+Presolve time = 0.02 sec. (0.00 ticks)
+Fixed MIP status(1): optimal
+Cplex Time: 0.03sec (det. 0.00 ticks)
+
+Proven optimal solution.
+
+MIP Solution:            2.000000    (0 iterations, 0 nodes)
+Final Solve:             2.000000    (0 iterations)
+
+Best possible:           2.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+--- Reading solution for model model1
+--- Executing after solve: elapsed 0:00:01.546
+--- Punto4.gms(43) 4 Mb
+*** Status: Normal completion
+--- Job Punto4.gms Stop 10/13/20 07:41:34 elapsed 0:00:01.546

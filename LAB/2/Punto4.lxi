@@ -1,0 +1,16 @@
+B 3 C o m p i l a t i o n
+B 53 Equation Listing    SOLVE model1 Using MIP From line 40
+D 56 FO
+D 61 r
+B 73 Column Listing      SOLVE model1 Using MIP From line 40
+E 76 x
+E 99 z
+B 107 Model Statistics    SOLVE model1 Using MIP From line 40
+B 120 Solution Report     SOLVE model1 Using MIP From line 40
+F 159 FO
+F 163 r
+G 174 x
+G 187 z
+B 197 E x e c u t i o n
+I 197 x
+I 204 z

@@ -77,7 +77,7 @@ for nodo in N:
     vecinos = arcos[nodo]
     for nodo2 in N:
         if nodo2 in vecinos:
-            costos[nodo][nodo2]=distancia(nodos[nodo],nodos[nodo2]) + randint(0,5)
+            costos[nodo][nodo2]=distancia(nodos[nodo],nodos[nodo2])
         else:
             costos[nodo][nodo2]=999
             
@@ -109,10 +109,18 @@ def unRepartidorCamino(Model,i,j):
     return sum(Model.x[r,i,j] for r in R)<=1
 Model.res3 = Constraint(N,N,rule=unRepartidorCamino)
 
+def recorrido(Model):
+    '''
+    Restriccion que asegura que existan las transiciones suficientes para atravezar el grafo
+    '''
+    return sum(Model.x[r,i,j] for j in N for i in N for r in R)==4
+Model.res4 = Constraint(rule=recorrido)
+
 def origen(Model,r,i):
     '''
     Un nodo origen solo puede ir a 1 nodo no origen
     Si el nodo origen no pertenece a ese repartidor, no puede salir a ningun lado de ese nodo
+    Nadie puede acceder al nodo origen
     '''
     lista = list(nodosIniciales.values())
     if i in lista:
@@ -121,8 +129,9 @@ def origen(Model,r,i):
         else:
             return sum(Model.x[r,i,j] for j in N)==0
     else:
-        return Constraint.Skip
-Model.res4 =Constraint(R,N,rule=origen)
+        return sum(Model.x[r,i,j] for j in N if j in lista)==0
+Model.res5 =Constraint(R,N,rule=origen)
+
 
 def unRepartidorEntra(Model,j):
     '''
@@ -130,11 +139,36 @@ def unRepartidorEntra(Model,j):
     '''
     lista = list(nodosIniciales.values())
     if j not in lista:
-        return sum(Model.x[1,i,j] for i in N) + sum(Model.x[2,i,j] for i in N)==1
+        return sum(Model.x[1,i,j] for i in N) + sum(Model.x[2,i,j] for i in N)<=1
     else:
         return Constraint.Skip
-Model.res5 = Constraint(N,rule=unRepartidorEntra)
-    
+Model.res6 = Constraint(N,rule=unRepartidorEntra)
+
+
+def unRepartidorSale(Model,i):
+    '''
+    Solo el repartidor 1 o el 2 puede salir del nodo I a cualquier otro
+    '''
+    lista = list(nodosIniciales.values())
+    if i not in lista:
+        return sum(Model.x[1,i,j] for j in N) + sum(Model.x[2,i,j] for j in N)<=1
+    else:
+        return Constraint.Skip
+Model.res7 = Constraint(N,rule=unRepartidorSale)
+
+
+
+def intermedio(Model,r,i):
+    '''
+    #Restriccion para asegurar continuidad en los flujos
+    '''
+    lista = list(nodosIniciales.values())
+    if i not in lista:
+        return sum(Model.x[r,i,j] for j in N if j not in lista) <= sum(Model.x[r,j,i] for j in N)
+    else:
+        return Constraint.Skip
+Model.res8 = Constraint(R,N,rule=intermedio)
+
 
 
 SolverFactory('glpk').solve(Model)

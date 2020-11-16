@@ -54,10 +54,10 @@ nodos = {1:(10,50),
          5:(50,40),
          6:(70,50)}
 
-arcos = {1:[2,4],
+arcos = {1:[2],
          2:[1,4,3],
          3:[2,5,6],
-         4:[1,2,5],
+         4:[2,5],
          5:[3,4,6],
          6:[3,5]
          }
@@ -77,7 +77,7 @@ for nodo in N:
     vecinos = arcos[nodo]
     for nodo2 in N:
         if nodo2 in vecinos:
-            costos[nodo][nodo2]=distancia(nodos[nodo],nodos[nodo2])
+            costos[nodo][nodo2]=distancia(nodos[nodo],nodos[nodo2]) + randint(0,5)
         else:
             costos[nodo][nodo2]=999
             

@@ -45,7 +45,7 @@ def delete_component(Model, comp_name):
 #Cargar parametro Escenario en el modelo  
 def cargar_escenarioModel(Model,nFilas,nColumnas,escenario):
     
-    if escenario == 1:       #Espacio vacio en el medio
+    if escenario == 1:       #Espacio vacio en el medio, sive para d, T, I
         for i in nFilas:
             for j in nColumnas:
                 if i==24 and j!=5:
@@ -60,7 +60,7 @@ def cargar_escenarioModel(Model,nFilas,nColumnas,escenario):
                 else:
                     Model.mapa[i,j]=0
                         
-    elif escenario == 3:              #Poner un cubo,una S o una Z
+    elif escenario == 3:              #Poner un O,una S o una Z
         for i in nFilas:
             for j in nColumnas:
                 if i==24 and j not in [2,3]:
@@ -144,7 +144,7 @@ rotaciones=3
 nFilas = RangeSet(1,filas)
 nColumnas = RangeSet(1,columnas)
 nRotacion = RangeSet(0,3)
-entrada=['d']
+entrada=['o']
 piezas = {'t0':np.array([[1,1,1],[0,1,0]]),
           't1':np.array([[1,0],[1,1],[1,0]]),
           't2':np.array([[0,1,0],[1,1,1]]),
@@ -182,7 +182,7 @@ modelo = ConcreteModel()
 modelo.puntaje = Param(nFilas,nColumnas,mutable=True)
 modelo.mapa = Param(nFilas,nColumnas,mutable=True)
 cargarPuntajeModel(modelo,nFilas,nColumnas)
-cargar_escenarioModel(modelo,nFilas,nColumnas,1)
+cargar_escenarioModel(modelo,nFilas,nColumnas,3)
 while(len(entrada)>0):
     
     fichaNueva = entrada[0]

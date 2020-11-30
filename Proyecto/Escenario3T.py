@@ -45,7 +45,7 @@ def delete_component(Model, comp_name):
 #Cargar parametro Escenario en el modelo  
 def cargar_escenarioModel(Model,nFilas,nColumnas,escenario):
     
-    if escenario == 1:       #Espacio vacio en el medio
+    if escenario == 1:       #Espacio vacio en el medio, sive para d, T, I
         for i in nFilas:
             for j in nColumnas:
                 if i==24 and j!=5:
@@ -144,7 +144,7 @@ rotaciones=3
 nFilas = RangeSet(1,filas)
 nColumnas = RangeSet(1,columnas)
 nRotacion = RangeSet(0,3)
-entrada=['d']
+entrada=['t0']
 piezas = {'t0':np.array([[1,1,1],[0,1,0]]),
           't1':np.array([[1,0],[1,1],[1,0]]),
           't2':np.array([[0,1,0],[1,1,1]]),

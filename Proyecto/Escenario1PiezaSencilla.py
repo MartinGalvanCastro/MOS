@@ -144,7 +144,7 @@ rotaciones=3
 nFilas = RangeSet(1,filas)
 nColumnas = RangeSet(1,columnas)
 nRotacion = RangeSet(0,3)
-entrada=['d']
+entrada=['d','d']
 piezas = {'t0':np.array([[1,1,1],[0,1,0]]),
           't1':np.array([[1,0],[1,1],[1,0]]),
           't2':np.array([[0,1,0],[1,1,1]]),
@@ -182,7 +182,7 @@ modelo = ConcreteModel()
 modelo.puntaje = Param(nFilas,nColumnas,mutable=True)
 modelo.mapa = Param(nFilas,nColumnas,mutable=True)
 cargarPuntajeModel(modelo,nFilas,nColumnas)
-cargar_escenarioModel(modelo,nFilas,nColumnas,1)
+cargar_escenarioModel(modelo,nFilas,nColumnas,2)
 while(len(entrada)>0):
     
     fichaNueva = entrada[0]

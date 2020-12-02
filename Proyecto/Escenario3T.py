@@ -191,7 +191,7 @@ while(len(entrada)>0):
     print_campo(modelo,nFilas)
     print("------------------------------------------------------")
     print_pieza(piezas[fichaNueva])
-    print("-----------------MODELO-------------")
+    #print("-----------------MODELO-------------")
     
     #Variable de Desición
     modelo.x=Var(nFilas,nColumnas,domain=Binary) #Se pone o no pieza en esa casilla
@@ -201,18 +201,6 @@ while(len(entrada)>0):
     modelo.ob = Objective(expr = sum((modelo.x[i,j])*modelo.puntaje[i,j] for j in nColumnas for i in nFilas), sense = maximize)
 
     #Restricciones
-
-    def sobreponer(Model,i,j):
-        """
-        Restricción para no sobreponer una ficha
-        """
-        if Model.mapa[i,j]==0:
-            return Model.x[i,j]+Model.mapa[i,j]<=1
-        else:
-            return Constraint.Skip
-
-    modelo.R1 = Constraint(nFilas,nColumnas,rule=sobreponer)
-
 
     def piezasNuevas(Model):
         """

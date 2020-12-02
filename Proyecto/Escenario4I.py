@@ -202,16 +202,6 @@ while(len(entrada)>0):
 
     #Restricciones
 
-    def sobreponer(Model,i,j):
-        """
-        Restricción para no sobreponer una ficha
-        """
-        if Model.mapa[i,j]==0:
-            return Model.x[i,j]+Model.mapa[i,j]<=1
-        else:
-            return Constraint.Skip
-
-    modelo.R1 = Constraint(nFilas,nColumnas,rule=sobreponer)
 
 
     def piezasNuevas(Model):
